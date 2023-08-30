@@ -1,0 +1,172 @@
+<html >
+<head >
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="kStyles.css" />
+</head>
+
+<style>
+
+
+
+</style>
+
+
+<body id="body3" class="body" onscroll="scroll()" onload="scroll()" onresize="scroll()">
+  <div id="loadscreen" class="load">
+    <p class="textLoad">
+      LOADING...
+    </p>
+    
+    <img class="picLoad" id="picLoad" src="ollie.png" alt="place holder photo for loading screen">
+  </div>
+  <div id="blurBox" class="blurBox" py-click="menuTrig()">
+    blurBox debug
+  </div>
+
+  <div id="title" class="title ">
+      Welcome to Kaden VanPortfleet's Official Website
+      <div id="clock" class="clock ">
+        time here
+      </div>
+  </div>
+  
+
+  <div class="banner" py-click="menuTrig()">
+      <div class="banItems">
+      </div>
+      <div class="banItems">
+      </div>
+      <div class="banItems">
+      </div>
+  </div>
+
+  <div class="banMenu" id="menu">
+    <div class="banMenuItems" >
+      About Me
+    </div>
+    <div class="banMenuItems" py-click="redirectListener('contact.html')">
+      Contact Me
+    </div>
+    <div class="banMenuItems" py-click="redirectListener('signIn.html')">
+      Log In
+    </div>
+  </div>
+
+  <div id="col1" class="col1">
+      <h1>About Me<h1>
+      <p style="font-size: 22; text-indent: 10px; padding: 5px;">Currently enrolled at Davenport University (Junior) for Computer Architecture, Design, and Algorithmic processes. I have customer service experience (6 years), Managerial Experience (2 years), and IT experience (2 years). Proficient with Microsoft Office Suite including, but not limited to, Excel, Word, PowerPoint, Teams, and SharePoint. Comfortable and able to write with HTML and CSS, Visual Basic and Visual Studio, C#, Python, and SQL. Built multiple computers and have extensive knowledge on peripheral components and troubleshooting all the way down to the bios level. Have moderate experience with Cisco equipment (routers, switches, etc.) as well as Networking tools such as WireShark and Packet Tracer. Experience with diagnosing and swapping out CPUs, GPUs, HDDs, SSDs, PSUs, motherboards. Created Virtual Machines for both Windows and Linux. Comfortable with Windows Registry and Command Prompt. Ability to learn anything quickly and efficiently. High passion for problem solving and I strive for excellent communication.</p>
+
+  </div>
+
+  <img class="pic" src="ollie.png" alt="place holder photo">
+  <div id="col2" class="col2">
+    <h1>Prior Work Experience<h1>
+    <p style="font-size: 22; padding: 5px;">
+      <b style="font-size: 26;">NCG Cinemas, Greenville — Assistant Manager | June 2018 - February 2021</b><br>
+      - Tasked with leading a group of workers and setting examples.<br>
+      - In charge of keeping track of and organizing relevant data.<br>
+      - Communicated verbally and non-verbally to other individuals within the company to accomplish tasks including, but not limited to, paperwork, projects, and solutions.<br>
+      - Improvised on the fly to solve new problems at a moment's notice.<br><br>
+      <b style="font-size: 26;">MAHLE, Grand Rapids — IT/EUC Technician | February 2021 - PRESENT</b><br>
+      - Lead plant-wide projects to swap and/or integrate physical IoT hardware.<br>
+      - Maintained data and handled physical components of end-users’ computers.<br>
+      - Managed leases of computers and made sure they were returned in a timely manner.<br>
+      - Came up with IT solutions for many high-profile projects and worked with external vendors to complete them.<br>
+      </p>
+
+  </div>
+
+
+  <div class="col3" id="column3" >
+    <h1 id="test" >Education<h1>
+    <p style="font-size: 22; padding: 5px;">
+      <b style="font-size: 26;">Montcalm Community College, Sidney — 2017 - 2019</b><br><br>
+      <b style="font-size: 26;">Davenport University, Grand Rapids — 2020 - Present</b><br>
+      Started in January, 2020 to pursue my bachelor’s degree in Computer Science with a focus on Artificial Intelligence and Machine Learning. I have completed Object-Oriented Programming on C# (B+), Networking IT (A), English Composition (A), Systems Analysis and Design (B), Database Design (A), Discrete Structures (A), Biometrics (A), Data Structures (A), Artificial Intelligence (A), Operating Systems (A). Currently holding a 3.7+ GPA.
+      </p>
+
+  </div>
+  <!-- Visual Seperator -->
+
+  
+  <py-script>
+      import os
+      import asyncio
+      import time
+      from datetime import datetime
+      from js import window
+      print("loaded!")
+      async def loadScreen():
+        for i in range(101):
+          rot = i * 10
+          js.document.getElementById("picLoad").style.transform = f"translate(-50%, -50%) rotate({rot}deg)"
+          await asyncio.sleep(1/120)
+        for i in range(10, -1, -1):
+          js.document.getElementById("loadscreen").style.opacity = i/10
+          await asyncio.sleep(.05)
+        js.document.getElementById("loadscreen").style.zIndex = -99
+
+      asyncio.ensure_future(loadScreen())
+
+
+      def menuTrig():
+        asyncio.ensure_future(expandMenu())
+      
+      async def expandMenu():
+        print("called")
+        box = js.document.getElementById("menu")
+        blur = js.document.getElementById("blurBox")
+          
+        if box.style.height == f"150px":
+          for i in range(10, -1 , -1):
+              
+            blur.style.backdropFilter = f"blur({i/2}px)"
+            box.style.height = f"{i*15}px"
+            box.style.fontSize = f"{i*2.5}px"
+            await asyncio.sleep(.01)
+            
+          blur.style.height = "0%"
+
+        else:
+          blur.style.height = "100%"
+          for i in range(11):
+            blur.style.backdropFilter = f"blur({i/2}px)"
+            box.style.height = f"{i*15}px"
+            box.style.fontSize = f"{i*2.5}px"
+            await asyncio.sleep(.01)
+      
+      
+      
+      async def timeClock():
+        clock = Element("clock")
+        while 1:
+          now = datetime.now()
+          clock.element.innerText = now.strftime("%H:%M:%S")
+          await asyncio.sleep(1)
+          #print("test")
+      asyncio.ensure_future(timeClock())
+
+      def redirectListener(link):
+        print("redirect")
+        asyncio.ensure_future(redirect(link))
+      async def redirect(link):
+        window.location.href = link
+
+
+
+
+  </py-script>
+  <script defer src="KScript.js"></script>
+  <py-config>
+  terminal = false
+  [splashscreen]
+      enabled = false
+
+  
+  </py-config>
+</body>
+
+
+</html>

@@ -1,0 +1,197 @@
+<html>
+<head>
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="kStyles.css" />
+</head>
+<style>
+.col2
+{
+  grid-column-start: 1;
+  grid-template-columns: 4;
+  grid-row-start: 4;
+}
+</style>
+
+<body id="body3" class="body" onscroll="scroll()" onload="scroll()" >
+    <div id="loadscreen" class="load">
+      <p class="textLoad">
+      LOADING...
+      </p>
+      <img class="picLoad" id="picLoad" src="ollie.png" alt="place holder photo for loading screen">
+    </div>
+    <div id="blurBox" class="blurBox" py-click="menuTrig()">
+      blurBox debug
+    </div>
+
+    <div id="title" class="title ">
+        Welcome to Kaden VanPortfleet's Official Website<br>
+        <p id="clock" class="clock ">
+          time here
+        </p>
+    </div>
+    
+
+    <div class="banner" py-click="menuTrig()">
+        <div class="banItems">
+        </div>
+        <div class="banItems">
+        </div>
+        <div class="banItems">
+        </div>
+    </div>
+
+    <div class="banMenu" id="menu">
+      <div class="banMenuItems" py-click="redirectListener('main.html')">
+        About Me
+      </div>
+      <div class="banMenuItems">
+        Contact Me
+      </div>
+      <div class="banMenuItems">
+        Log In
+      </div>
+    </div>
+
+    <div id="col2" class="col2">
+      <h1>My Contact Info<h1>
+      <p style="font-size: 22; padding: 5px;">
+        Phone: +1(616)255-2660<br>
+        Email: kadenvanportfleet@outlook.com<br>
+      </p>
+
+    </div>
+
+
+    
+    <!-- Visual Seperator -->
+
+    
+  <py-script>
+        import os
+      import asyncio
+      import time
+      from datetime import datetime
+      from js import window
+      print("loaded!")
+      async def loadScreen():
+        for i in range(101):
+          rot = i * 10
+          js.document.getElementById("picLoad").style.transform = f"translate(-50%, -50%) rotate({rot}deg)"
+          await asyncio.sleep(1/120)
+        for i in range(10, -1, -1):
+          js.document.getElementById("loadscreen").style.opacity = i/10
+          await asyncio.sleep(.05)
+        js.document.getElementById("loadscreen").style.zIndex = -99
+
+      asyncio.ensure_future(loadScreen())
+
+
+      def menuTrig():
+        asyncio.ensure_future(expandMenu())
+      
+      async def expandMenu():
+        print("called")
+        box = js.document.getElementById("menu")
+        blur = js.document.getElementById("blurBox")
+          
+        if box.style.height == f"150px":
+          for i in range(10, -1 , -1):
+              
+            blur.style.backdropFilter = f"blur({i/2}px)"
+            box.style.height = f"{i*15}px"
+            box.style.fontSize = f"{i*2.5}px"
+            await asyncio.sleep(.01)
+            
+          blur.style.height = "0%"
+
+        else:
+          blur.style.height = "100%"
+          for i in range(11):
+            blur.style.backdropFilter = f"blur({i/2}px)"
+            box.style.height = f"{i*15}px"
+            box.style.fontSize = f"{i*2.5}px"
+            await asyncio.sleep(.01)
+      
+      
+      
+      async def timeClock():
+        clock = Element("clock")
+        while 1:
+          now = datetime.now()
+          clock.element.innerText = now.strftime("%H:%M:%S")
+          await asyncio.sleep(1)
+          #print("test")
+      asyncio.ensure_future(timeClock())
+
+      def redirectListener(link):
+        print("redirect")
+        asyncio.ensure_future(redirect(link))
+      async def redirect(link):
+        window.location.href = link
+
+  </py-script>
+  <script>
+    console.log("loaded!!!");
+    function delay(time) 
+    {
+      return new Promise(resolve => setTimeout(resolve, time));
+    }
+    document.getElementById("column3").style.opacity = "1";
+    document.getElementById("col2").style.opacity = "1";
+
+    async function scroll()
+    {
+      var arr = new Array();
+      arr.push("col2");
+      arr.push("column3")
+
+
+      console.log("called!!!");
+      fadeInPoint = (window.innerHeight - 150);
+      fadeOutPoint = (window.innerHeight - 150);
+      console.log(fadeOutPoint);
+      await delay(100);
+      
+      for (let i=0; i<arr.length;i++)
+      {
+        console.log("!!!" + i);
+        rect = document.getElementById(arr[i]).getBoundingClientRect();
+        console.log(rect.top);
+
+        if ((rect.top < fadeInPoint) && (document.getElementById(arr[i]).style.opacity == "0"))
+        {
+          console.log("passed!");
+          for (let j = 0; j <= 10; j++)
+          {
+            document.getElementById(arr[i]).style.opacity = j/10;
+            console.log(document.getElementById(arr[i]).style.opacity);
+            await delay(10);
+          }
+        }
+        else if (rect.top > fadeOutPoint && document.getElementById(arr[i]).style.opacity == "1")
+        {
+          console.log("passed2!");
+
+          for (let j = 10; j >= 0; j--)
+          {
+            document.getElementById(arr[i]).style.opacity = j/10;
+            await delay(10);
+          }
+        }
+      }
+      
+    }
+  </script>
+    <py-config>
+    terminal = false
+    [splashscreen]
+        enabled = false
+
+    
+    </py-config>
+</body>
+
+
+</html>
