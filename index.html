@@ -33,7 +33,7 @@
   </div>
   
 
-  <div class="banner" py-click="menuTrig()">
+  <div class="banner" id="banner" py-mouseover="menuTrig()" py-mouseout="menuTrig()">
       <div class="banItems">
       </div>
       <div class="banItems">
@@ -61,6 +61,7 @@
   </div>
 
   <img class="pic" src="kaden.png" alt="place holder photo">
+
   <div id="col2" class="col2">
     <h1>Prior Work Experience<h1>
     <p style="font-size: 22; padding: 5px;">
@@ -91,6 +92,7 @@
   <!-- Visual Seperator -->
 
   
+
   <py-script>
       import os
       import asyncio
@@ -158,6 +160,8 @@
 
 
   </py-script>
+
+
   <script defer src="KScript.js"></script>
   <py-config>
   terminal = false

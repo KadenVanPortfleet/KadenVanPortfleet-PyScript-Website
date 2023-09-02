@@ -22,15 +22,13 @@ def menuTrig():
       
 async def expandMenu():
     print("called")
-    box = js.document.getElementById("menu")
+    banner = js.document.getElementById("banner")
     blur = js.document.getElementById("blurBox")
           
-    if box.style.height == f"150px":
-        for i in range(10, -1 , -1):
-              
-        blur.style.backdropFilter = f"blur({i/2}px)"
-        box.style.height = f"{i*15}px"
-        box.style.fontSize = f"{i*2.5}px"
+    if banner.style.transform == f"translate(-95%, 0%)":
+        for i in range(10, -1 , -1):    
+            blur.style.backdropFilter = f"blur({i/2}px)"
+            banner.style.transform = f"translate({-i*9.5}%, 0%)"
         await asyncio.sleep(.01)
             
         blur.style.height = "0%"
@@ -39,8 +37,7 @@ async def expandMenu():
         blur.style.height = "100%"
         for i in range(11):
             blur.style.backdropFilter = f"blur({i/2}px)"
-            box.style.height = f"{i*15}px"
-            box.style.fontSize = f"{i*2.5}px"
+            banner.style.transform = f"{i*15}px"
             await asyncio.sleep(.01)
       
       

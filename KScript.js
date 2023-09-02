@@ -1,4 +1,4 @@
-console.log("loaded!!!");
+console.log("loaded JS!!!");
     function delay(time) 
     {
       return new Promise(resolve => setTimeout(resolve, time));
